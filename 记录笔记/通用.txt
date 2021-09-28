@@ -1,0 +1,11 @@
+https://exmail.qq.com/cgi-bin/login
+
+tvkoo@3sgame.com.cn
+Dkdk-2012  dk2012
+SVN账号： tvkoo
+SVN密码：222222
+
+
+http://u7-sdk-api.szkuniu.com/docs/server_side.html                sdk 文档
+http://47.103.94.107:16889/u8servermanager/admin/index             v8 线上
+192.168.1.204 (root) topform@2016

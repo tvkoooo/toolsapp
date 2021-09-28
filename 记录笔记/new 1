@@ -1,0 +1,85 @@
+cross_offline_arena
+
+CrossOfflineArenaData     cross_offline_arena
+db_cross_offline_arena_t   
+_db_cross_offline_arena
+
+
+DrawCouponData            draw_coupon_info
+db_draw_coupon_t
+_db_draw_coupon
+
+
+
+
+    _last_reset_time = 0;//玩家记录的上次重置时间【用来补发玩家未领取的上次奖励】
+    _intergral = 0;//赛季积分，用来领取和发宝箱的
+    _history_top_rank = 0;//历史最高排名
+    _last_season_rank = 0;//上赛季排名
+    _last_season_score = 0;//上赛季积分
+    _day_top_rank = 0;//邮件提醒前的当日最高排名【只要玩家当日前50，掉出名次发1次邮件】
+    _rank_mail_times = 0;//当日排名变化发送邮件次数
+    _set_integral_award.clear();//已经领取奖励的档位
+    _set_praise_player.clear();//当日点赞的玩家
+    _map_killboss_time.clear();//记录的boss击杀时间
+
+
+
+
+
+
+
+	ftproto::DBMagicContainer  dbftp;
+	if (dbftp.ByteSize() > db_magic_container_t::data_len)
+	{
+		CrashAssert(false, " magic_container_component_t::flush_to_db size :%d max", dbftp.ByteSize());
+		return;
+	}
+
+	db_magic_container_t&  dbinfo = m_pPlayer_account->db_magic_container();
+	dbinfo.cleanup();
+
+	dbinfo.info_len = dbftp.ByteSize();
+	dbftp.SerializeToArray(dbinfo.info_data, db_magic_container_t::data_len);
+
+	m_b_save = false;
+
+
+
+
+
+
+#define sh_arena_native_state 0
+#define sh_arena_pub_state 1
+
+
+
+
+
+cross_offline_arena
+
+magic_container_component_t
+_magic_container_component
+
+cross_offline_arena_component_t
+_cross_offline_arena_component
+
+
+
+
+
+cross_offline_arena
+
+cross_offline_arena_manager				cross_friend_list_mgr
+cross_offline_arena_native_proxy			cross_friend_native_proxy
+cross_offline_arena_pub_mgr					cross_qualifying_pub_mrg	  		
+cross_offline_arena_pub_svc                  cross_friend_pub_svc
+cross_offline_arena_assets_manager           magic_container_asset
+
+
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+multimap<int, int>::iterator iterBeg = testMap.lower_bound(searchItem);
+multimap<int, int>::iterator iterEnd = testMap.upper_bound(searchItem);
+for(;iterBeg != iterEnd;iterBeg++)
+{
+	if (iterBeg->second == it_data1->second->m_n_key)
+	{
+		m_map_score_key.erase(iterBeg);
+		break;
+	}
+}
+m_map_hurt_player.insert(pair<prop_value_t, charguid_t>(hert, charguid));

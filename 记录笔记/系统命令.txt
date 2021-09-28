@@ -1,0 +1,112 @@
+player_brief
+guild_log
+
+山海外网先不要更新,改动了表结构，我先编译234
+
+
+tail -f gamesrv_26909_202108241400.log |grep --line-buffer "achievement_component_t" | grep --line-buffer "633144032228933632"
+tail -f play*.log |grep --line-buffer "achievement_component_t" 
+tail -f play*.log | grep -E "1359|1351"
+
+player_mgr_t::add_player charid:52742725650284544  token:52742726002933760
+tail -f game*.log | grep -E "add_player"
+grep "add_player" game*.log> token.log
+
+
+cd D:/tvkoo/projectx/release/server/bin/logs/gamesrv
+cd D:/tvkoo/project3/release/server/bin/logs/gamesrv
+cd D:/tvkoo/px_inner/release/server/bin/logs/gamesrv
+tail -f gamesr*| grep "log_reward_player"
+tail -f play*| grep "role_login"
+grep -E "2300205" gamesrv_*_20201002*.log | wc -l
+grep -E "ywguildboss_component_t_player" player_log_*_20201007*.log >> getmy.log
+
+
+tail -f log | grep --line-buffer xxx | grep --line-buffer yyy    //按行输出grep
+
+grep -E "word1|word2|word3"   file.txt    或的关系
+
+升星
+[INFO] achievement_component_t playerguid=2839061437023125504, activate_achievement :1000004
+成就
+tail -f gamesr*.log |grep --line-buffer "achievement_component_t" | grep --line-buffer "12022001"
+grep "achievement_component_t" gamesrv_*_20210629*.log | grep "1073"
+grep "achievement_component_t" gamesr*.log | grep "60031239"
+
+
+services.msc
+sc delete KSD2Service  删除服务
+netstat -aon|findstr "9088"   查看端口
+tasklist | findstr "srv"
+tasklist | findstr "redis"
+
+redis     FLUSHALL 清空redis
+            FLUSHDB  清空当前数据库 key
+            SHUTDOWN 安全关闭redis
+            SAVE     BGSAVE出现异常可以 强制 SAVE 保存
+            BGSAVE     异步SAVE
+
+su 3sgame
+
+grep "log_reward_player\[240484624255680514\] bossid" gamesr*.*
+
+
+
+@所有人  山海经的工程现在用的是windows是VS2019，  linux是centos7.9
+\\192.168.1.250\共享软件2\vs\vs2019
+这是VS的路径，可以先提前装上编译器
+
+
+
+Npj    
+4pj  test
+xpj  转盘优化
+3pj	   
+
+
+tail -f game*.log |grep -E "cross_space_explore_mgr_t::save_defense_record|space_explore_mgr_t::save_exploit_record" 
+
+https://www.laomaotao.net/
+
+
+
+
+$(SolutionDir)..\..\release\server\bin\$(TargetName)$(TargetExt)
+$(SolutionDir)..\..\release\server\bin
+
+
+
+subline 修改快捷键
+preference—Key Bindings -Default 
+{ "keys": ["ctrl+shift+u"], "command": "upper_case" },
+{ "keys": ["ctrl+u"], "command": "lower_case" },
+
+
+
+
+
+
+需要和客户端一起改协议
+optional int32              dress_skin  = 17;   // 穿戴的时装 0则是没有穿戴
+cardinfo.dress_skin = human.player_account().skin_component()->get_hero_dress_skin_id(human.hero_id());
+
+
+void battle_help::get_crad_info_by_human(human_t& human,int32_t nslot, battle_card_info_t& cardinfo)
+battle_team_info_t
+BattleCard
+
+
+控制面板  用户账户和家庭安全  凭据管理器
+git账户删除   重新建立git账户
+
+
+
+
+
+
+
+
+
+
+
+

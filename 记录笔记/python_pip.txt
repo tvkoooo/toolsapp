@@ -1,0 +1,31 @@
+查看已经安装的第三方库:pip list
+
+直接安装库：pip install 库名 
+指定版本安装：pip install robotframework==2.8.7
+
+卸载已安装的库：pip uninstall requests
+更新某个库： pip install -U requests
+查看pip版本：pip --version
+
+打包exe
+pyinstaller -F myTool.py
+
+py 安装excel工具
+pip install xlrd==1.2.0
+
+py 安装win32
+pip install pypiwin32
+
+
+
+
+
+获取exe路径
+import sys 
+import os 
+print(sys.path[0]) 
+print(sys.argv[0]) 
+print(os.path.dirname(os.path.realpath(sys.executable)))      # 这个exe可以       
+print(os.path.dirname(os.path.realpath(sys.argv[0])))          # 这个exe可以 
+
+

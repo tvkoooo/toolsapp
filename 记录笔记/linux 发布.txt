@@ -1,0 +1,269 @@
+3sgame     3sgame@2019  3sgamewin$  cd /root/redis_11101
+mysqldump -h127.0.0.1 -P30712 -uroot -p3sgame@20190508 projectx_6 t_user --where "charguid=260750915667361792"  --hex-blob> "./260750915667361792.sql" 
+su - 3sgame
+文件密码都是 3sgamewin$
+date
+
+tail -f game* | grep "TokenChar: token"
+
+Yves   w276cKhi
+Tvkoo=58380687
+http://124.70.194.230:9901/index/login
+
+https://192.168.1.134/svn/fgame_rep/dev_proj/branches/px_inner/server
+https://192.168.1.134/svn/fgame_rep/dev_proj/branches/px_inner/tools/protocol/pdl
+
+
+tail -f log | grep --line-buffer xxx | grep --line-buffer yyy    //按行输出grep
+
+cd /root/redis_11100
+ps aux|grep srv   查看当前运行的 服务器进程 5个
+pwd
+mkdir querylog
+cp /home/3sgame/hy_4582/logs/gamesrv/bak/gamesrv_*_20210921*.log.gz  /home/3sgame/querylog/
+cp /home/3sgame/hy_4582/logs/gamesrv/gamesrv_*_20210923*.log  /home/3sgame/querylog/
+cp /home/3sgame/hy_4582/logs/gamesrv/bak/player_*_20210917*.log.gz  /home/3sgame/querylog/
+cp /home/3sgame/hy_5008/logs/gamesrv/player_*_2021072*.log  /home/3sgame/querylog/
+cp /home/3sgame/px_894/logs/dbsrv/bak/dbsrv_*_202107*.log.gz  /home/3sgame/querylog/
+cp /home/3sgame/hy_4572/logs/dbsrv/bak/dbsrv_*_202108*.log.gz  /home/3sgame/querylog/
+cp /home/3sgame/hy_4572/logs/dbsrv/dbsrv_*_202108*.log  /home/3sgame/querylog/
+cp /home/3sgame/hy_4572/logs/shmsrv/bak/shmsrv_*_202108*.log.gz  /home/3sgame/querylog/
+cp /home/3sgame/hy_4572/logs/shmsrv/shmsrv_*_202108*.log  /home/3sgame/querylog/
+gzip -d *.gz  解压日志到当前目录 
+grep "1448857591286792192" gamesrv_*.log >games_1448857591286792192.log      
+grep "1433094774981918720" player*.log >playr_1.log      
+rm -rf querylog
+
+-----本地测试玩家id 
+gm do3 award 2300085 97
+tail -f gamesr*| grep "2300085"           获取用户id
+-----本地复现 道具日志
+tail -f gamesr*| grep "2839061657121062912"
+grep "send_award_log  208677833066676225" game*.log | grep 118 | wc -l
+
+
+
+外网测试服重启下，更新下服务器。  @所有人  
+外网测试服重启成功
+
+mkdir /home/admin/.m2/
+cp -r /home/3sgame/projectx/release/server/bin/. /home/3sgame/projectx/release/server/bin1
+
+192.168.1.204  root   topform@2016   
+
+
+tar –czf jpg.tar.gz *.jpg
+
+
+
+cd /home/3sgame/projectx
+./upserver.sh            拉代码
+
+svn update
+cd /home/3sgame/projectx/release/server
+./update.sh  更新bin 文件
+pwd
+
+cd /home/3sgame/projectx/server/build/
+
+./servers_make.sh              编译
+如果 编译错误 使用 make        查看编译错误并改正
+
+./servers_install.sh            拷贝 编译文件 到 启动路径
+
+
+cd /home/3sgame/projectx/release/server/bin           在群里说一下 @all  204服务器重启
+./stop.sh     停止当前游戏服         
+
+cd /home/3sgame/projectx/release/server
+./update.sh  更新bin 文件   svn up
+
+cd /home/3sgame/projectx/release/server/bin
+./free_shm.sh      清空一下共享内存
+./start.sh         才重启服务器
+ps aux |grep srv   查看一下进程数量      本地测试一下   没问题  在群里说一下 启动成功
+
+
+Jenkins     http://192.168.1.233:8080/   root 123456   //必须是 204服自己测试正常 才能到这来进行发布。Jenkins 有不明白的地方一定要 问。防止构建错工程
+	妖尾测试服更新发布
+立即构建
+
+
+外网启动后查看 
+47.103.136.242     root  3sgamewin$
+cd /home/3sgame/act/
+ps aux|grep srv   查看当前运行的 服务器进程 5个
+
+
+·····跳板机登录数据库
+mysql -h127.0.0.1  -uroot -p3sgame@20190508 -P30712
+
+
+cat crash.log  查看日志
+备份全路径
+cd /home/3sgame/package/211273_2020_06_11_act_yw_09_56_40/act
+运行路径
+/home/3sgame/act/
+拷贝
+cp /home/3sgame/package/211273_2020_06_11_act_yw_09_56_40/act/gamesrv /home/3sgame/act/gamesrv111
+
+gdb gamesrv111 错误core
+bt
+
+
+
+
+https://192.168.1.134/svn/fgame_rep/dev_proj/branches/px_stable/server      232稳定分支    topform@2018
+
+
+linux 清理数据
+	停服，关闭服务器
+	cd /home/3sgame/projectx/release/server/bin
+	./stop.sh                                   //如果是看效果，不要执行这个，会停服的
+	
+	/home/3sgame/projectx/release/server/bin   查看 servers.conf
+	1 清理redis 根据根据端口查询进程 <查看linux config redis 和 sql 端口号>
+		netstat -ntlp |grep 40713
+			tcp        0      0 0.0.0.0:40713               0.0.0.0:*                   LISTEN      28558/./src/redis-s             28558 是进程号类似
+		ll /proc/24795/          固定写法，查看进程id 信息       cwd -> /home/3sgame/redis-projectx
+		cd /home/3sgame/redis-projectx                          cd /root/redis_6/
+		kill -9 5350							//如果是看效果，不要执行这个，会删掉Redis 数据的         cd /root/redis_11100
+		rm -rf dump.rdb							//如果是看效果，不要执行这个，会删掉Redis 数据的
+		./src/redis-server redis.conf			//如果是看效果，不要执行这个，这个是重启redis
+
+	2 清理 mysql    先登录         根据 config 查看 用户名<root> 端口<30712> 密码<123456> 数据库<projectx>
+		mysql -uroot -P3306 -p123456
+		show databases;
+		use projectx_186;
+		source /home/3sgame/projectx/release/db_init.sql;                     //如果是看效果，不要执行这个，会删掉mysql 数据的
+		show tables;    
+		SELECT count(*) FROM t_user;
+		select guild_name from t_guild;
+		select channel_uid from t_user;
+		select gui from t_user;
+		show FULL COLUMNS FROM t_guild; 
+
+	清理共享数据
+	cd /home/3sgame/projectx/release/server/bin
+	./free_shm.sh								//如果是看效果，不要执行这个，会清理共享数据
+	
+	开服
+	./start.sh									//如果是看效果，不要执行这个，这个是重启204服务器
+	
+	查看
+	ps aux|grep srv
+	
+	验证
+	登录客户端验证
+	
+	select charguid from t_user where channel_uid = "tfpc_tk1";
+	select * from t_guild_member where char_id =2839061042439585792;
+	select * from t_guild where guild_id = ;
+
+
+
+root          233
+topform@2018
+su - 3sgame
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+192.168.1.233    3sgame   密码问下周敢把
+/home/3sgame/projectx/px_inner/release/server/bin
+./stop.sh   
+svn up       更新bin
+./free_shm.sh
+./start.sh
+
+
+
+
+大乱斗主干 204：/home/3sgame/clash/trunk/server
+inner：233：/home/3sgame/px_clash/inner/server
+stable：232： /home/3sgame/px_clash/stable/server
+
+60001082
+
+_db->achievements[i].id == 66666601 || _db->achievements[i].id == 60001082
+
+
+
+grep "do_reward_rank" game* | grep "1029177930989895680"
+
+
+
+
+
+
+主干在 204 /home/3sgame/hy/trunk，root登录；
+
+stable在 208  /home/3sgame/hy/stable
+3sgame 登录 密码 3sgame@2019
+root密码我改了，需要的单独问我
+
+还有个华为外网测试服，在
+124.71.182.254   /home/3sgame/hy_81
+
+
+@所有人  ，火影inner的编译环境在 233
+/home/3sgame/hy/inner/server
+
+
+
+
+
+
+
+
+
+
+
+https://192.168.1.134/svn/fgame_rep/dev_proj/branches/hy/server
+https://192.168.1.134/svn/fgame_rep/dev_proj/branches/hy_stable/tools
+https://192.168.1.134/svn/fgame_rep/dev_proj/branches/hy_inner/client/exe
+
+
+
+
+
+@所有人  山海工程的SVN路径已切换，私发给你们的是你们山海工程的SVN账号密码
+重定向一下SVN就可以提交了，
+旧的SVN地址：https://192.168.1.134/svn/project_shanhaijing
+替换后的SVN地址：svn://svn.3sgame.com.cn:35690/project_shanhaijing
+Tvkoo=58380687
+山海
+svn://svn.3sgame.com.cn:35690/project_shanhaijing/dev_proj/branches/shj_stable/     stable分支
+
+
+
+http://192.168.1.233:8080/    山海编译和发布
+192.168.1.234机器的密码    topform@2021   3sgame@2021 3sgame
+
+
+外网116.63.229.32(3sgame)
+3sgame
+3sgame@2019
+
+
+871 506 414
+3sgame
+
+254 366 909
+3sgame
+
+
+
+
+【需求】【后端】【【5月】火影5月版本-优先级A】【服务器】【ID1004523】【功能】【占卜商店仙系、魔系循环功能增加】  有协议和新增表
+
+
+
+
+
+
+svn://svn.3sgame.com.cn:35690/project_shanhaijing/dev_proj/branches/shj_inner  山海分支工程@所有人 
+svn://svn.3sgame.com.cn:35690/project_shanhaijing/dev_proj/trunk/server
+
+
+@所有人  ,山海经正式环境已经搭建好，编译机器在 192.168.1.205 3sgame 3sgame@2019 ，暂时用的inner分支进行编译，以后会切到stable分支。如果需要发布，请下在 205上进行编译；
+jenkins环境用的 204，原来大乱斗的，注意不要点错。

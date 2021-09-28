@@ -1,0 +1,97 @@
+acl::acl_redis_t* redisconn = redis_manager::instance().getconn();
+acl::acl_redis_t* redisconn = cross_tool_t::get_public_redis(EActivityPlay_CROSS_STAR);
+
+
+
+
+general_act_ranking_assets
+general_act_ranking_mgr
+
+
+general_ranking_assets
+general_ranking_mgr
+
+
+
+war_flag
+
+WarFlag           Toys
+
+ToysOneInfo
+
+
+
+
+DBCardToysInfo
+
+
+// 战旗信息
+message  WarFlagAttrInfo
+{
+    optional int32                    attr_type                    = 1;  // 属性类型【0：力量  1：魔法】
+    optional int32                    attr                         = 2;  // 属性值
+}
+message  WarFlagOneInfo
+{
+    required int32                     guid                         = 1;    // 唯一id
+    required int32                     war_flag_id                  = 2;    // 战旗表id
+    optional int32                     refine_count                 = 3;    // 洗练次数
+    optional int32                     forge_count                  = 4;    // 强化次数
+    repeated WarFlagAttrInfo           base_attr_s                  = 5;    // 当前随机属性信息
+    repeated WarFlagAttrInfo           rand_attr_s                  = 6;    // 当前随机属性信息
+    repeated WarFlagAttrInfo           history_rand_attr_s          = 7;    // 重构后的属性信息
+}
+message  CardWarFlagOneInfo
+{
+    required    int32                npos                      = 1; // 位置
+    optional    WarFlagOneInfo       war_flag                  = 2;
+}
+message CardWarFlagInfo{
+	repeated    CardWarFlagOneInfo	  war_flag_info				=1;        // 战旗信息          
+    optional    int32             	  hero_id               	=2;
+}
+message  WarFlagBagInfo
+{
+    repeated WarFlagOneInfo           toys_info                = 1;    // 战旗背包数据信息
+    optional int32                    next_id                  = 2;
+}
+
+
+
+
+war_flag    WarFlag
+db_war_flag_bag_info_t     db_toys_bag_info_t
+_db_toys_bag_info		   _db_war_flag_bag_info
+
+
+m_listTosyInfo            m_listWarFlagInfo
+
+						db_hero_war_flag_dress_t
+
+
+m_ptoys_bag_component
+
+
+m_phuman_toys_component
+
+
+
+tail -f gamesr*.log |grep "get_guid_by_common_for_rank_opt"
+E_AWARD_CALLER_WAR_FLAG_SELL_RET
+
+
+ERR_WAR_FLAG_ID_ERR														战旗id错误
+ERR_WAR_FLAG_REFINE_COIN_NOT_ENOUGH										洗练金币花费不足
+ERR_WAR_FLAG_REFINE_ITEM_NOT_ENOUGH										洗练道具花费不足
+ERR_WAR_FLAG_REFINE_NO_NEED_SAVE										洗练无需保存
+
+
+
+
+
+
+
+
+
+
+

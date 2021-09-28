@@ -1,0 +1,29 @@
+void test_hmset()
+{
+	acl::acl_redis_t* redisconn = redis_manager::instance().getconn();
+	if (redisconn == NULL)
+	{
+		return;
+	}
+	// 存盘
+	std::map<std::string, std::string> m_test_put, m_test_get;
+	ftproto::YwGuildBossHistoryData msg_redis;
+	for (int it = 0; it < 10; ++it)
+	{
+		msg_redis.add_win_kill_layers(it);
+		msg_redis.add_win_rinking_layers(it-5);
+	}
+	std::string& s1 = m_test_put["s1"];
+	std::string& s2 = m_test_put["s2"];
+	msg_redis.SerializeToString(&s1);
+	msg_redis.SerializeToString(&s2);
+	redisconn->hmset("redis_test_hmset", m_test_put);
+	// 取出
+
+	redisconn->hgetall("redis_test_hmset", m_test_get);
+	ftproto::YwGuildBossHistoryData msg_redis1, msg_redis2;
+	msg_redis1.ParseFromString(m_test_get["s1"]);
+	msg_redis2.ParseFromString(m_test_get["s2"]);
+	int a = 3;
+	int b = a;
+}

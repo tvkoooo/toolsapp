@@ -1,0 +1,458 @@
+@刘国庆(Wair)   山海外网先不要更新,改动了表结构，我先编译234
+@刘国庆(Wair)   山海外网可以正常操作了， 234编译正常。    
+
+
+
+struct db_account_base_t
+玩家数据
+
+
+增加站位  lineup_manager_t::set_lineup_info
+void player_component_t::do_leave_game( player_t* player )    离开
+void player_component_t::on_enter_game(player_account_t &player_account)
+
+序列化 反序列化
+_db_item.SerializeToString(&output);                      ret_msg1.SerializeToString(&buf1);    player_account->net_component().send(ret_msg1.msgid(), buf1.c_str(), buf1.size());
+_db_item.ParseFromArray(v.c_str(), v.size())                     buf1.c_str(), buf1.size()
+p->CopyFrom(battle_record);                内容拷贝
+
+SVCLOG_ERR("%s index:%d _native_cfg.reset_cont2_size() % 2 != 0", __FUNCTION__, _native_cfg.id(), _native_cfg.reset_cont2_size());
+发奖日志
+		SVCLOG_INFO("%s log_reward_player:%lld awardid:%d num:%d", __FUNCTION__, m_p_player_account->charguid(), reward , 1);
+无法获得奖励日志
+		SVCLOG_INFO("%s NOget log_reward_player:%lld awardid:%d num:%d", __FUNCTION__, charguid, pmoster->kill_reward(), 1);//无法获得
+
+本服server_id  服务器id
+server_comm_cfg::instance().srv_id()
+
+发送属性或者道具 弹窗界面显示
+process_addition          
+
+
+发送聊天信息  100217  根据配置来发送对应信息
+    std::vector<std::string> params;
+    params.push_back(guild_name()); // old name.
+    params.push_back(szname); // new name.
+    chat_system::instance().MessageChat(100217, params);
+
+util::str_util::str_split                         字符分割
+is_double_equal     is_double_large_equal                              浮点比较
+
+strkits::STOT::type<guild_id_t>::tostr(guild_id)                               转 string
+charguid = strkits::STOT::type<charguid_t>::strto(result.first.c_str());    转 guild_id_t
+
+SVCLOG_INFO("%s player:%lld guild_id:%d guild_name:%s", __FUNCTION__, char_guid, guild, guild_name.c_str());
+
+int id = param_mgr::instance().param_value<int>(ParamIDCrystalFullMaillID);//全局变量   ParamIDGuildAppliyLimit
+
+//判断背包物品 数量函数
+if (player.backpack_component().get_item_count(ftcfg::EItemContainer_Bag, iterItem->first) < iterItem->second)
+    return     ftproto::ERR_CARD_STAR_UP_COST_ITEM_ERRO;
+删除道具
+m_p_player_account->backpack_component().remove_item_by_itemid(ftcfg::EItemContainer_Bag, it.first, it.second, EChangeItemModuleId_Transcender_UpgradeCost);
+    货币
+if (m_pPlayer_account->character_component().get_attribute(it.first) < it.second )
+m_pPlayer_account->character_component().del_attribute(it.first, it.second, EType_Reason_Transcender_UpgradeCost);
+
+player_account_t* pplayer_account = player_mgr::instance().get_player_account_by_charguid(char_id());
+player_brief_info_t* pmember_brief = player_brief_info_mgr::instance().get_brief_info(char_id());
+
+time_t netTime = util::date_time_t::next_srv_sectime( 0,hour,0,0, util::EPeriodType_Daily,lastTime);                每天
+time_t netTime = util::date_time_t::next_srv_sectime(util::EPeriodType_Weekly,nday,strTime,lastaTime);               每周
+time_t timenow = util::date_time_t::cur_srv_sectime();               //系统时间
+time_t time_now = util::date_time_t::cur_srv_sectime();               //系统时间
+
+邮件发奖
+mail_draft_t mail(300);
+mail.format_content("", 5);
+mail.send_mail_to(m_pPlayer_account->charguid());
+直接发奖
+award_info_list_t info_list;
+award_req_info_t awd(pmoster->participation_reward_id(), E_AWARD_YWGUILDBOSS_BATTLE_REWARD);
+info_list.push_back(awd);
+m_pPlayer_account->award_component().award_player_batch(info_list);
+	
+	get_player()->award_component().award_player_batch(info_list);
+	get_player()->award_component().award_player_coin_item(xxxxxxx);
+	
+	
+	
+	
+//卡牌信息	
+card_base_config_t* pbase_cfg = hero_assets::instance().get_card_base_by_card_id(card_id);	
+
+使用活动次数
+m_pPlayer_account->active_count_manager()->get_active_count(ftproto::EActivityPlay_ClimbTower);
+m_pPlayer_account->active_count_manager()->use_active_count(ftproto::EActivityPlay_ClimbTower);
+
+杂项数据 每日给客户端 更新
+void player_account_t::daily_update_misc()
+
+std::vector<std::string> params;
+params.push_back(player->nick_name()); // 玩家名.
+params.push_back(pcfg->get_name()); // 道具名
+chat_system::instance().MessageChat(param_mgr::instance().param_value<int>(ParamStarWorldNotifityId1), params); //普通广播
+chat_system::instance().GuildMessage(getNum, params, &m_p_guild);  //公会广播
+
+human_t* get_hero_by_id(hero_id_t hero_id);
+
+离线玩家阵容战力
+combatpoint_t point = offline_data->get_active_npos_combatpoint(new_active_type, npos);
+get_active_npos_combatpoint
+在线玩家阵容战力
+combatpoint_t  get_player_lineup_hero(const stru_linup_info_t& info) const;
+combatpoint_t point = m_pplayer_account->acc_prop_component()->get_player_lineup_hero(linup_type);
+
+//全服玩家数据
+const offline_account_item_t*  ptemp_offline = offline_list_mgr::instance().get_offline_account_data(guid, true);
+if (ptemp_offline != NULL)
+{
+
+}
+
+
+
+
+杂项数据
+misc_component_t *misc = owner()->get_component<misc_component_t>(COMPONENT_MISC);
+if(misc)
+{
+	_daily_donate_time = misc->get_misc_value<int>(ftproto::EMiscID_DailyGuildDonateCount);
+}
+if(misc)
+{
+	misc->set_misc_value(ftproto::EMiscID_DailyGuildDonateCount, misc_data_t(_daily_donate_time, true, false));
+}
+
+
+//kv结构（key = int32）
+message IntKeyValue {
+	required	int32						k						= 1;
+	optional	int32						vi32					= 2;
+	optional	int64						vi64					= 3;
+	optional	float						vf						= 4;
+	optional	double						vdb						= 5;
+	optional	string						vstr					= 6;
+}
+message DBstrsMapData
+{
+	optional int32    	 key 		= 1;	// map key
+	repeated string    	 val 		= 2;	// map val
+}
+
+message DBint32MapData
+{
+	optional int32    	 key 		= 1;	// map key
+	optional int32    	 val 		= 2;	// map val
+}
+message DBint64MapData
+{
+	optional int32    	 key 		= 1;	// map key
+	optional int64    	 val 		= 2;	// map val
+}
+message DBdoubleMapData
+{
+	optional int32    	 key 		= 1;	// map key
+	optional double    	 val 		= 2;	// map val
+}
+message DBset32MapData
+{
+	optional int32    	 key 		= 1;	// map key
+	repeated int32    	 val 		= 2;	// map val
+}
+
+message IntKeyValueArr
+{
+	repeated 	IntKeyValue					arr						= 1;
+}
+
+
+
+std :: stof() - 将string转换为float
+
+std :: stod() - 将string转换为double
+
+std :: stold() - 将string转换为long double
+
+1 string to CString   
+
+  CString.format("%s",string.c_str()); 
+
+2 CString to string
+
+string str(CString.GetBuffer(str.GetLength()));
+
+3 string to char *
+
+char *p=string.c_str();
+
+4 char * to string
+
+string str(char*);
+
+5 CString to char *
+
+strcpy(char,CString,sizeof(char));
+
+6 char * to CString
+
+CString.format("%s",char*);
+
+//stl 取随机值
+std::advance(it, get_n);
+
+
+int to CString
+s.Format(_T("The total is %d"),total);
+
+string 截断
+CString str(_T("wwwjizhuomi"),3）  // 构造的字符串对象内容为"www"     //CString str(_T('w'),3）； // str为"www"
+
+//字符串常用变形
+CString str(_T("JiZhuoMi"));
+str.MakeLower(); // str为"jizhuomi"
+str.MakeUpper(); // str为"JIZHUOMI"
+str.MakeReverse(); // str为"IMOUHZIJ"
+
+多个CString对象的连接可以通过重载运算符+、+=实现。例如：
+CString str(_T("jizhuomi")); // str内容为"jizhuomi"
+str = _T("www") + str + _T("-"); // str为"wwwjizhuomi-"
+str += _T("com"); // str为wwwjizhuomi-com
+
+CString str1 = _T("JiZhuoMi");
+CString str2 = _T("jizhuomi");
+if (str1 == str2
+
+CString str = _T("jizhuomi");
+int n1 = str.Replace(_T('i'),_T('j')); // str为"jjzhuomj"，n1为2
+int n2 = str.Delete（1,2）； // str为"jhuomj"，n2为6
+int n3 = str.Remove(_T('j')); // str为"ihuom"，n3为1
+
+
+CString str = _T("jizhuomi");
+int nIndex1 = str.Find(_T("zh")); // nIndex1的值为2
+int nIndex2 = str.FindOneOf(_T("mui")); // nIndex2的值为1
+int nIndex3 = str.ReverseFind(_T('i')); // nIndex3的值为7
+
+CString str;
+int a = 1;
+float b = 2.3f;
+str.Format(_T("a=%d,b=%f"),a,b); // str为"a=1,b=2.300000"
+
+转int
+_tstoi atoi atoi _wtoi 
+_ttoi  atoi atoi _wtoi
+
+char * p = "This is a test";
+TCHAR * p = _T("This is a test")
+LPTSTR p = _T("This is a test");
+CString s = "This is a test"; // 8-bit only
+CString s = _T("This is a test"); // Unicode-aware
+CString s("This is a test"); // 8-bit only
+CString s(_T("This is a test")); // Unicode-aware
+CString s = p;
+CString s(p);
+
+
+
+multimap<int, int>::iterator iterBeg = testMap.lower_bound(searchItem);
+multimap<int, int>::iterator iterEnd = testMap.upper_bound(searchItem);
+for(;iterBeg != iterEnd;iterBeg++)
+{
+	if (iterBeg->second == it_data1->second->m_n_key)
+	{
+		m_map_score_key.erase(iterBeg);
+		break;
+	}
+}
+
+
+
+
+//服务器id 转玩家名字   服务器名
+m_map_hurt_player.insert(pair<prop_value_t, charguid_t>(hert, charguid));
+	time_t showtime = pactivity->get_show_time(m_pPlayer_account);//获得开启时间
+	int32_t get_day = (int32_t)(util::date_time_t::cur_srv_sectime() - showtime) / SECONDS_DAY + 1;//活动开启天数，更新为最新的天数。有可能跨越了几天
+
+
+
+                int32_t  nrank = pcfg->get_end_rank();
+                int32_t  noticeid = pcfg->get_end_notice();
+
+                std::vector<std::string> vec;
+                for (int npos = 0; npos < nrank && npos < info.rank_info_size(); ++npos)
+                {
+                        char hvalue[512] = { 0 };
+                        std::string strName = "";
+                        CChatConfigMgr::instance().get_server_name(info.rank_info(npos).server_id(), strName);
+                        tsnprintf(hvalue, sizeof(hvalue), "%s-%s", strName.c_str(),info.rank_info(npos).name().c_str());
+                        vec.push_back(hvalue);
+                }
+
+                chat_system::instance().MessageChat(noticeid, vec);
+
+	char char_data[128] = { 0 };
+	int32_t len = strlen(char_data);
+	tsnprintf(char_data + len, sizeof(char_data) - len, "%s %d, ", pcfg->item_name(), attribute._attribute_count);
+
+	char char_data[128] = { 0 };
+	tsnprintf(char_data , sizeof(char_data), "(S%d)%s, ", server_id, player_name.c_str());
+
+
+
+
+
+
+
+int session_t::handler(ns::packet_t *pack)
+
+
+
+util::rand_util::random_range_int(0, 99)
+
+
+typedef std::pair<int32_t, combatpoint_t> hero_combatpoint_pair;
+typedef std::vector<hero_combatpoint_pair> hero_combatpoint_list_t;
+
+
+
+//本地获取战区服信息
+native_type_zone_t* get_zone_by_acti_type(int acti_type);
+
+
+
+
+
+	int32_t server_id = server_comm_cfg::instance().srv_id();
+
+	int32_t act_zone_type = cross_assets::instance().get_rule_id_by_activity(act_id);//活动所在战区
+	int32_t zone_type = cross_server_info_mgr::instance().get_pub_zone_type(server_id);
+
+
+
+
+
+
+m_map_hurt_player.insert(pair<prop_value_t, charguid_t>(hert, charguid));
+
+
+
+
+
+
+
+
+//致敬
+int guild_benefit_component_t::receive_benefit( int benefit_type )
+
+
+Common::GetRandInfo<int>(m_arrWarFlagId, m_arrRatio, NULL)
+Common::RandomAttr(std::vector<T>& arrData);
+
+
+CHECK_PUB_SERVER();
+
+//判断是自己活动战区才执行
+if (!cross_tool_t::check_activity_can_run_pub_server(EActivityPlay_CROSS_STAR))
+	return;
+
+
+
+
+    int32_t mail_id = p_arena_cfg->week_reset_mail();
+    mail_draft_t mail_sender(mail_id);
+    mail_sender.set_send_time(_last_week_reset_time);
+    mail_sender.send_mail_to(acc_player->charguid(), ftproto::EMailSenderType::EMailSenderType_OfflineArena);
+
+
+
+
+
+
+char c_space[128] = { 0 };
+int32_t c_len = strlen(c_space);
+tsnprintf(c_space + c_len, sizeof(c_space) - c_len, "%d, ", hero_id);
+
+
+int32_t server_level = server_level_mgr::instance().get_cur_server_level();
+
+SVCLOG_INFO("%s playerid:%lld ",__FUNCTION__, m_pPlayer_account->charguid());
+
+ranking.ParseFromArray(get_redis.c_str(), get_redis.size());
+ranking.SerializeToString(&get_redis);
+
+for(auto& it : _map)
+{
+
+}
+
+human_t* phuman = m_pPlayer_account->get_hero_by_id(it.first);
+
+for (auto& it : m_pPlayer_account->get_hero_map())//遍历玩家卡牌
+{
+	if (it.first == 1)//默认卡，删除
+		continue;
+	if (it.second == NULL)
+		continue;
+}
+
+if (NULL == ppoint)
+	return;
+
+if (NULL == ppoint)
+	continue;
+
+std::vector<std::string> params;
+params.push_back(guild_name()); // old name.
+params.push_back(szname); // new name.
+chat_system::instance().MessageChat(100217, params);
+
+std::string str = strkits::STOT::type<guild_id_t>::tostr(guild_id);
+charguid_t guid = strkits::STOT::type<charguid_t>::strto(result.first.c_str());
+
+int32_t srv_id = server_comm_cfg::instance().srv_id();
+
+int32_t param = param_mgr::instance().param_value<int32_t>(ParamIDCrystalFullMaillID);
+std::vector<double> price;
+param_mgr::instance().double_param_arr_value(ParamArrIDGuildMailPrice, price);
+player_account_t* pplayer_account = player_mgr::instance().get_player_account_by_charguid(char_id());
+if (star_playerid < 200000000)
+	continue;
+player_brief_info_t* pmember_brief = player_brief_info_mgr::instance().get_brief_info(char_id());
+time_t time_now = util::date_time_t::cur_srv_sectime();
+mail_draft_t mail(300);
+mail.format_content("", 5);
+for (auto& it : item_map)
+{
+	mail.add_item(it.first, it.second);//活动奖励
+}
+mail.send_mail_to(m_pPlayer_account->charguid());
+
+award_info_list_t info_list;
+award_req_info_t awd(pmoster->participation_reward_id(), E_AWARD_YWGUILDBOSS_BATTLE_REWARD);
+info_list.push_back(awd);
+m_pPlayer_account->award_component().award_player_batch(info_list);
+
+card_base_config_t* pbase_cfg = hero_assets::instance().get_card_base_by_card_id(card_id);
+
+m_pPlayer_account->active_count_manager()->get_active_count(ftproto::EActivityPlay_ClimbTower);
+const offline_account_item_t*  ptemp_offline = offline_list_mgr::instance().get_offline_account_data(guid, true);
+combatpoint_t point = m_pplayer_account->acc_prop_component()->get_player_lineup_hero(linup_type);
+combatpoint_t point = offline_data->get_active_npos_combatpoint(new_active_type, npos);
+
+
+
+#define SERIALDB(NAME)													\
+const auto &db_t = fullchar._db_account._db_##NAME;						\
+if (db_t.info_len > 0)													\
+{																		\
+	auto *buff_info = prdata.mutable_account_all()->mutable_##NAME();	\
+	buff_info->ParseFromArray(db_t.info_data, db_t.info_len);			\
+}
+
+
+
+
+
+
+

@@ -1,0 +1,125 @@
+18
+town
+gm save_data
+setlevel 150
+gm vip 1 8
+gm addcard 1001 1   
+gm addcard 2201 1   
+gm addcard 3105 1   
+gm addcard 3305 1   
+gm updaterank
+skipguide
+gm dos reload
+gm addcoin 3 8000000000  
+gm addcoin 4 900000000    
+
+gm addcoin 2 300000000    
+gm addcoin 59 9999999     
+gm dos cardinfo 2 13 320
+gm clearbag
+gm dos cardcl
+
+gm ach 1 2006000
+gm gaveitem 63000
+
+ip 192.168.1.59 21002 23000
+ip 192.168.1.187 21002 23000
+ip 192.168.1.187 31002 33000
+ip 192.168.1.187 41002 43000
+ip 192.168.1.204 23102 23100
+ip 192.168.1.233 23002 23000
+ip 192.168.1.208 23002 23000
+ip 192.168.1.234 23502 23500
+
+showtime 1
+gm stageok 50
+gm towerOK 100
+
+gm groupcount 5201 20
+gm starup 1001 2
+
+gm chgdate 2021-10-1 6:49:40
+
+
+公服时间
+gm chgdate 2021-9-18 21:29:30 1 1 1
+
+
+flushdb   清空redis
+
+gm ach 0 0    清除玩家所有成就
+gm ach 1 1000001   完成某个小成就
+gm ach 1 2006127   
+gm ach 3 341 1 9 -1   完成某个小成就 
+gm ach 3 339 1 40 -1   完成某个小成就 
+gm ach 5 60031250   查看某个小成就 
+
+gm dos gbid 53
+gm ltpt 0 AddCard			//清除vip推送礼包记录
+gm ltpt 1 SeniorDrawCard -1 50		//触发vip推送礼包事件
+
+gm additem 101 99999
+gm addcoin 37 6
+
+skipguide
+
+gm dos award 202102887 76
+gm dos mail1 10002 101
+gm dos award 10110001 7           随机3次       
+
+gm updaterank
+gm dos award 26010101 5           随机1次        
+gm dos award 5560007 7           随机3次        
+gm dos award 26010101 73           无随机     
+gm dos mail1 10002 10860004 200500          发道具        
+gm dos mail2 126 12310016 200500          发奖励
+gm dos buy 1 600     3块钱
+gm gaveitem 60       购买商品
+gm dos gstore 1 2600001 8
+gm dos toyf 48
+gm dos gsup2 4 1
+gm dos gsreset2 3
+gm dos gskill1 1 40 1
+gm dos gskill2 1 20 1
+gm dos gsbreach2 1
+gm dos mcup2
+gm dos cardinfo 2 11 111
+  
+gm dot2 ywboss_set_event 2 41
+gm dot2 ywboss_attack_boss 2 1000 6000000
+
+gm dot2 HobbyUnLock       
+
+   
+gm additem 136 1 0 222 
+gm additem 131 99
+gm additem 84928001 550 0 222
+gm additem 59 999
+gm additem 1061025 1
+gm addcoin 59 9999999
+gm addcard 1001 10
+gm addcard 1202 20
+gm addcard 1303 10
+gm addcard 1001 20
+gm addcard 1305 20
+gm addcard 1108 10
+
+
+gm serverlevel 150
+gm qualifying 1 5
+
+
+db err
+	db_acc_buff_t					_db_acc_buff;
+	db_guild_component_info_t		_db_guild_component_info;
+	db_Strongest_Team               _db_strongest_team;                                                            // 最强小队
+	db_limit_time_boss_t			_db_limit_time_boss;
+
+
+
+
+
+
+
+
+

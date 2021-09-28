@@ -1,0 +1,263 @@
+nginx-1.20.1
+chown -R zdz.nginx KooBox
+chown -R James:users  *
+usermod -a -G groupA user    	user 也加入 组 groupA
+groups user								查看用户所属的组使用命令
+
+从容停止服务
+nginx -s quit
+立即停止服务
+nginx -s stop
+systemctl 停止
+systemctl stop nginx.service
+killall 方法杀死进程
+killall nginx
+
+启动Nginx
+nginx
+systemctl命令启动
+systemctl start nginx.service
+重启Nginx服务
+systemctl restart nginx.service
+重新载入配置文件
+nginx -s reload
+查看端口号
+netstat -tlnp
+
+下载源码包解压编译
+wget http://nginx.org/download/nginx-1.20.1.tar.gz 
+tar xvf nginx-1.20.1.tar.gz  -C /usr/local/src/
+
+安装相应的开发工具
+yum groupinstall "Development tools"
+yum -y install gcc wget gcc-c++ automake autoconf libtool libxml2-devel libxslt-devel perl-devel perl-ExtUtils-Embed pcre-devel openssl-devel
+
+
+进入nginx目录进行编译安装
+cd /usr/local/src/nginx-1.20.1
+
+
+执行以下命令，直接粘贴即可
+./configure \
+--prefix=/usr/local/nginx \
+--sbin-path=/usr/sbin/nginx \
+--conf-path=/etc/nginx/nginx.conf \
+--error-log-path=/var/log/nginx/error.log \
+--http-log-path=/var/log/nginx/access.log \
+--pid-path=/var/run/nginx.pid \
+--lock-path=/var/run/nginx.lock \
+--http-client-body-temp-path=/var/tmp/nginx/client \
+--http-proxy-temp-path=/var/tmp/nginx/proxy \
+--http-fastcgi-temp-path=/var/tmp/nginx/fcgi \
+--http-uwsgi-temp-path=/var/tmp/nginx/uwsgi \
+--http-scgi-temp-path=/var/tmp/nginx/scgi \
+--user=nginx \
+--group=nginx \
+--with-pcre \
+--with-http_v2_module \
+--with-http_ssl_module \
+--with-http_realip_module \
+--with-http_addition_module \
+--with-http_sub_module \
+--with-http_dav_module \
+--with-http_flv_module \
+--with-http_mp4_module \
+--with-http_gunzip_module \
+--with-http_gzip_static_module \
+--with-http_random_index_module \
+--with-http_secure_link_module \
+--with-http_stub_status_module \
+--with-http_auth_request_module \
+--with-mail \
+--with-mail_ssl_module \
+--with-file-aio \
+--with-ipv6 \
+--with-http_v2_module \
+--with-threads \
+--with-stream \
+--with-stream_ssl_module
+
+
+完成编译安装
+make && make install
+mkdir -pv /var/tmp/nginx/client
+
+
+添加SysV启动脚本
+vi /etc/init.d/nginx
+
+按i进入编辑状态
+#!/bin/sh
+#
+# nginx - this script starts and stops the nginx daemon
+#
+# chkconfig: - 85 15
+# description: Nginx is an HTTP(S) server, HTTP(S) reverse \
+# proxy and IMAP/POP3 proxy server
+# processname: nginx
+# config: /etc/nginx/nginx.conf
+# config: /etc/sysconfig/nginx
+# pidfile: /var/run/nginx.pid
+# Source function library.
+. /etc/rc.d/init.d/functions
+# Source networking configuration.
+. /etc/sysconfig/network
+# Check that networking is up.
+[ "$NETWORKING" = "no" ] && exit 0
+nginx="/usr/sbin/nginx"
+prog=$(basename $nginx)
+NGINX_CONF_FILE="/etc/nginx/nginx.conf"
+[ -f /etc/sysconfig/nginx ] && . /etc/sysconfig/nginx
+lockfile=/var/lock/subsys/nginx
+start() {
+[ -x $nginx ] || exit 5
+[ -f $NGINX_CONF_FILE ] || exit 6
+echo -n $"Starting $prog: "
+daemon $nginx -c $NGINX_CONF_FILE
+retval=$?
+echo
+[ $retval -eq 0 ] && touch $lockfile
+return $retval
+}
+stop() {
+echo -n $"Stopping $prog: "
+killproc $prog -QUIT
+retval=$?
+echo
+[ $retval -eq 0 ] && rm -f $lockfile
+return $retval
+killall -9 nginx
+}
+restart() {
+configtest || return $?
+stop
+sleep 1
+start
+}
+reload() {
+configtest || return $?
+echo -n $"Reloading $prog: "
+killproc $nginx -HUP
+RETVAL=$?
+echo
+}
+force_reload() {
+restart
+}
+configtest() {
+$nginx -t -c $NGINX_CONF_FILE
+}
+rh_status() {
+status $prog
+}
+rh_status_q() {
+rh_status >/dev/null 2>&1
+}
+case "$1" in
+start)
+rh_status_q && exit 0
+$1
+;;
+stop)
+rh_status_q || exit 0
+$1
+;;
+restart|configtest)
+$1
+;;
+reload)
+rh_status_q || exit 7
+$1
+;;
+force-reload)
+force_reload
+;;
+status)
+rh_status
+;;
+condrestart|try-restart)
+rh_status_q || exit 0
+;;
+*)
+echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest}"
+exit 2
+esac
+
+赋予脚本执行权限
+chmod +x /etc/init.d/nginx
+
+添加nginx服务进程用户
+groupadd -r nginx
+useradd -r -g nginx nginx
+
+添加至服务管理列表，设置开机自启
+chkconfig --add nginx
+chkconfig nginx on
+
+
+启动nginx
+关闭防火墙：systemctl stop firewalld
+service nginx start
+
+---------------------------------------------------------------------------------------------------------------
+在linux下安装nginx的时候，一般在./configure的阶段会要求通过prefix设置安装路径。因此，在./configure的时候指定不同的prefix就可以安装多个nginx啦。
+
+值得注意的是，安装完之后，两个nginx的监听端口要设置成不同的监听端口。否则，会有一个nginx无法启动。
+
+./configure --prefix=/home/work/nginx1 .....//第一个nginx的安装配置
+
+make && make install
+
+./configure --prefix=/home/work/nginx2 .....//第二个nginx的安装配置
+
+make && make install
+
+cd /home/work/nginx1/conf/nginx.conf && 修改第一个nginx的监听端口.
+
+./home/work/nginx1/sbin/nginx
+
+cd /home/work/nginx2/conf/nginx.conf && 修改第二个nginx的监听端口.
+
+./home/work/nginx2/sbin/nginx
+------------------------------------------------------------------------------------------------------------------
+阿里云服务器 启用ipv6
+grep ipv6 /etc/sysctl.conf
+说明没有启用
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+
+vim /etc/sysctl.conf
+net.ipv6.conf.all.disable_ipv6 = 0
+net.ipv6.conf.default.disable_ipv6 = 0
+net.ipv6.conf.lo.disable_ipv6 = 0
+
+vim /etc/modprobe.d/disable_ipv6.conf
+options ipv6 disable=0
+
+vim /etc/sysconfig/network
+NETWORKING_IPV6=yes
+
+
+wq 退出后执行
+sysctl -p
+
+查看
+ifconfig
+netstat -tuln
+39.106.33.122:80
+[fe80::216:3eff:fe2c:90f5]:80
+
+https://www.tunnelbroker.net/
+注册很容易，就不讲了，注册需要邮箱验证，，gmail、163能收得到认证邮件，qq还是一样收不到
+
+
+
+nginx 配置 ipv6
+vim /etc/nginx/nginx.conf
+        listen     	80;
+        listen     	[::]:80 ipv6only=on;
+nginx -s reload
+
+http://test-ipv6.com/  这个是测试 本地是否支持 ipv6
+
+https://www.cnblogs.com/pengyunjing/p/9192918.html
